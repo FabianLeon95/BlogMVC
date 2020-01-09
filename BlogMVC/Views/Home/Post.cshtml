@@ -1,0 +1,75 @@
+﻿@model BlogMVC.Models.Post
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        <p>
+            Por
+            <a href="#">
+                @Html.DisplayFor(model => model.User.FirstName)
+                @Html.DisplayFor(model => model.User.LastName)
+            </a>
+        </p>
+
+        <hr />
+        @Html.Raw(Model.CreatedDate.ToString("dd MMMM yyyy"))
+        <hr />
+
+        <p style="font-size: 1.25rem">
+            @Html.DisplayFor(model => model.Description)
+        </p>
+
+        <img class="mb-3 img-fluid" src="~/Uploads/PostImages/@Html.DisplayFor(model => model.ImagePath)" alt="@Html.DisplayFor(model => model.Title)" />
+
+        <p>
+            @Html.DisplayFor(model => model.Content)
+        </p>
+
+        <hr class="mt-5"/>
+        <h5>Comentarios</h5>
+        <hr />
+        @if (Request.IsAuthenticated)
+        {
+            <div class="card shadow-sm">
+                <h5 class="card-header">Deja un commentario:</h5>
+                <div class="card-body">
+                    @using (Html.BeginForm("Comment", "Home", new { id = Model.Id }, FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            <textarea class="form-control" name="Content" rows="3"></textarea>
+                        </div>
+                        <input type="submit" value="Publicar" class="btn btn-primary float-right shadow-sm" />
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.ActionLink("Inicia sesión para commentar", "Login", "Account", new { ReturnUrl = Request.RawUrl }, new { @class = "btn btn-primary btn-block shadow-sm"})
+        }
+
+
+        @foreach (var item in Model.Comments.OrderByDescending(c => c.CreatedDate))
+        {
+            <div class="mt-4 bg-white p-3 rounded shadow-sm">
+                <h5>@Html.DisplayFor(modelItem => item.User.FirstName)</h5>
+                <p class="mb-0">
+                    @Html.DisplayFor(modelItem => item.Content)
+                </p>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-4">
+        @{
+            Html.RenderAction("SearchForm");
+            Html.RenderAction("CategoriesList");
+        }
+    </div>
+</div>
+
+

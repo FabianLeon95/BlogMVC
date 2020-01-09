@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using BlogMVC.Models
+@using BlogMVC.Helpers
+@{
+    var db = new BlogMVC.Data.BlogContext();
+    var userStore = new UserStore<User>(db);
+    var userManager = new UserManager<User>(userStore);
+    var user = userManager.FindById(User.Identity.GetUserId());
+    ViewBag.UserName = user != null ? user.FirstName : "Perfil";
+}
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-nav" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="nav-item @Html.IsActive("Account") dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @ViewBag.UserName
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                @Html.ActionLink("Perfil", "Index", "Account", null, new { @class = "dropdown-item" })
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+<div class="navbar-nav">
+    @Html.ActionLink("Iniciar sesión", "Login", "Account", null, new { @class = "nav-item nav-link" })
+    @Html.ActionLink("Registrarse", "Register", "Account", null, new { @class = "nav-item nav-link" })
+</div>
+}

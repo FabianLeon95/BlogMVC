@@ -1,0 +1,15 @@
+﻿@model IEnumerable<BlogMVC.Models.Category>
+
+<div class="card mb-3 shadow">
+    <h5 class="card-header">Categorías</h5>
+    <div class="card-body">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-6">
+                    @Html.ActionLink(item.Title, "Category", new { id = item.Id })
+                </div>
+            }
+        </div>
+    </div>
+</div>

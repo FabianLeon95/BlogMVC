@@ -1,0 +1,59 @@
+﻿@model BlogMVC.ViewModels.ProfileViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="mb-4">Mi Perfil</h2>
+
+@if (ViewBag.StatusMessage != "")
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewBag.StatusMessage
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="card mb-4 shadow">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <div class="bg-light rounded px-2" style="border-left: .25rem solid #007bff">
+                    <div class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </div>
+                    <p>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="bg-light rounded px-2" style="border-left: .25rem solid #007bff">
+                    <div class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </div>
+                    <p>
+                        @Html.DisplayFor(model => model.LastName)
+                    </p>
+                </div>
+                
+            </div>
+            <div class="col-12">
+                <div class="bg-light rounded px-2" style="border-left: .25rem solid #007bff">
+                    <div class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </div>
+                    <p>
+                        @Html.DisplayFor(model => model.Email)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Editar Perfil", "EditProfile", null, new { @class = "btn btn-primary shadow-sm"})
+    @Html.ActionLink("Cambiar Contraseña", "ChangePassword", null, new {@class = "btn btn-primary shadow-sm"})
+</p>

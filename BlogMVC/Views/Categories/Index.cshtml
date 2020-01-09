@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BlogMVC.Models.Category>
+
+@{
+    ViewBag.Title = "Categorías";
+}
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2 class="mb-0">Categorías</h2>
+
+        <p class="mb-0">
+            @Html.ActionLink("Nueva Categoría", "Create", null, new { @class = "btn btn-primary shadow-sm" })
+        </p>
+    </div>
+<div class="card mb-4 shadow">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="border-top-0">
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th class="border-top-0"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td class="text-right">
+                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary btn-sm mb-1 shadow-sm" title="Editar"><i class="fas fa-pen fa-fw"></i></a>
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm mb-1 shadow-sm" title="Eliminar"><i class="fas fa-trash fa-fw"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

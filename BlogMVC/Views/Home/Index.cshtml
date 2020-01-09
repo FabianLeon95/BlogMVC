@@ -1,0 +1,47 @@
+﻿@model BlogMVC.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="card mb-4 shadow">
+
+    <div class="row d-flex align-items-center">
+        <div class="col-lg-7">
+            <img class="card-img-top p-lg-3" src="~/Uploads/PostImages/@Model.posts.First().ImagePath" alt="Alternate Text" />
+        </div>
+        <div class="col-lg-5">
+            <div class="card-body">
+                <h3>@Model.posts.First().Title</h3>
+                <p>@Model.posts.First().Description</p>
+                <a class="btn btn-primary mt-3" href="#">Ver más</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        @foreach (var item in Model.posts.Skip(1))
+        {
+            <div class="card mb-4 shadow">
+                <img src="~/Uploads/PostImages/@Html.DisplayFor(modelItem => item.ImagePath)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.Title)" />
+                <div class="card-body">
+                    <a href="@Url.Action("Post", new { id = item.Id })">
+                        <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
+                    </a>
+                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                    @Html.ActionLink("Ver más >>", "Post", new { id = item.Id }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-4">
+        @{
+            Html.RenderAction("SearchForm");
+            Html.RenderAction("CategoriesList");
+        }
+    </div>
+</div>
