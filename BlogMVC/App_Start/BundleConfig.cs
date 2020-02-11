@@ -21,7 +21,6 @@ namespace BlogMVC.App_Start
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap/bootstrap.css",
-                      "~/Content/fontawesome/css/all.css",
                       "~/Content/site.css"));
         }
     }
