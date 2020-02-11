@@ -26,7 +26,13 @@
 
 </div>
 
-<div class="row">
+<div class="row flex-md-row-reverse">
+    <div class="col-md-4">
+        @{
+            Html.RenderAction("SearchForm");
+            Html.RenderAction("CategoriesList");
+        }
+    </div>
     <div class="col-md-8">
         @if (Model.posts.Count() > 1)
         {
@@ -35,7 +41,7 @@
                 <div class="card mb-4 shadow">
                     <img src="~/Uploads/PostImages/@Html.DisplayFor(modelItem => item.ImagePath)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.Title)" />
                     <div class="card-body">
-                        <a href="@Url.Action("Post", new { id = item.Id })">
+                        <a href="@Url.Action("Post", new {id = item.Id})">
                             <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
                         </a>
                         <p>@Html.DisplayFor(modelItem => item.Description)</p>
@@ -45,11 +51,5 @@
             }
         }
 
-    </div>
-    <div class="col-md-4">
-        @{
-            Html.RenderAction("SearchForm");
-            Html.RenderAction("CategoriesList");
-        }
     </div>
 </div>
